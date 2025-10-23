@@ -379,14 +379,11 @@ const entrance_songs = async function (req, res) {
     (err, data) => {
       if (err) {
         console.log(err);
-        res.json([]);
-      } else {
-        res.json(data.rows);
+        return res.json([]);
       }
+      return res.json(data.rows);
     }
   );
-
-  res.json([]);
 };
 
 module.exports = {
