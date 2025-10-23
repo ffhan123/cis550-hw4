@@ -361,9 +361,9 @@ const search_songs = async function (req, res) {
 const entrance_songs = async function (req, res) {
   // TODO (TASK 13): return a selection of songs that meet the criteria above
   // You should allow the user to specify how many songs they want (limit) with a default of 10
-  const limit = req.query.limit || 10;
-  const maxEnergy = req.query.max_energy || 0.5;
-  const minDanceability = req.query.min_danceability || 0.73;
+  const limit = parseInt(req.query.limit ?? 10, 10);
+  const maxEnergy = parseFloat(req.query.max_energy ?? 0.5);
+  const minDanceability = parseFloat(req.query.min_danceability ?? 0.73);
 
   connection.query(
     `
@@ -379,9 +379,10 @@ const entrance_songs = async function (req, res) {
     (err, data) => {
       if (err) {
         console.log(err);
-        return res.json([]);
+        res.json([]);
+      } else {
+        res.json(data.rows);
       }
-      return res.json(data.rows);
     }
   );
 };
